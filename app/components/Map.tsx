@@ -8,7 +8,7 @@ type MapProps = {
 }
 
 export default function Map({ mapName }: MapProps) {
-	const src = `/public/maps/${mapName}.png`
+	const src = `/maps/${mapName}.png`
 
 	const [container, setContainer] = useState<HTMLDivElement | null>(null)
 
@@ -52,7 +52,7 @@ export default function Map({ mapName }: MapProps) {
 	return (
 		<Box
 			style={{
-				width: '100vw',
+				width: '100%',
 				height: '100vh'
 			}}
 			ref={setContainer}
