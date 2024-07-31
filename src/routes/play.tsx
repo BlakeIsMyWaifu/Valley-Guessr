@@ -1,14 +1,8 @@
 import { AppShell } from '@mantine/core'
-import { type MetaFunction } from '@remix-run/node'
 import { useMemo } from 'react'
-
-import Map from '~/components/Map'
-import Sidebar from '~/components/Sidebar'
-import getRandomLocation from '~/utils/getRandomLocation'
-
-export const meta: MetaFunction = () => {
-	return [{ title: 'Valley Guessr' }, { name: '_', content: '_' }]
-}
+import Map from 'src/components/Map'
+import Sidebar from 'src/components/Sidebar'
+import getRandomLocation from 'src/utils/getRandomLocation'
 
 export default function Play() {
 	const location = useMemo(() => {

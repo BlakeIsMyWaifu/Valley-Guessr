@@ -1,6 +1,5 @@
 import { Image, Stack, Title } from '@mantine/core'
-
-import { type Location } from '~/utils/getRandomLocation'
+import { type Location } from 'src/utils/getRandomLocation'
 
 type SidebarProps = {
 	location: Location

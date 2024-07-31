@@ -1,8 +1,7 @@
 import { Box } from '@mantine/core'
 import { useCallback, useEffect, useMemo, useState } from 'react'
 import { TransformComponent, TransformWrapper } from 'react-zoom-pan-pinch'
-
-import { type Location } from '~/utils/getRandomLocation'
+import { type Location } from 'src/utils/getRandomLocation'
 
 type MapProps = {
 	/** Must be a file from /public/maps/*.png */

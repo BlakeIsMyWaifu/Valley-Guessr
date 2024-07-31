@@ -1,34 +1,38 @@
 {
   "name": "valley-guessr",
   "private": true,
-  "sideEffects": false,
+  "version": "0.1.0",
   "type": "module",
+  "engines": {
+    "node": ">=18.0.0"
+  },
   "scripts": {
-    "build": "remix vite:build",
-    "dev": "remix vite:dev",
-    "lint": "eslint --ignore-path .gitignore --cache --cache-location ./node_modules/.cache/eslint .",
-    "start": "remix-serve ./build/server/index.js",
-    "typecheck": "tsc"
+    "dev": "run-p dev:*",
+    "dev:1": "vite",
+    "dev:2": "start http://localhost:5173",
+    "build": "tsc && vite build",
+    "lint": "run-s lint:*",
+    "lint:1-eslint": "eslint . --ext ts,tsx --report-unused-disable-directives --max-warnings 0",
+    "lint:2-typescript": "tsc --project tsconfig.json --noEmit",
+    "preview": "vite preview"
   },
   "dependencies": {
     "@mantine/core": "^7.11.2",
     "@mantine/hooks": "^7.11.2",
-    "@remix-run/node": "^2.10.3",
-    "@remix-run/react": "^2.10.3",
-    "@remix-run/serve": "^2.10.3",
-    "isbot": "^4.1.0",
+    "@swan-io/chicane": "^2.1.0",
     "react": "^18.2.0",
     "react-dom": "^18.2.0",
-    "react-zoom-pan-pinch": "^3.6.1"
+    "react-zoom-pan-pinch": "^3.6.1",
+    "ts-pattern": "^5.2.0"
   },
   "devDependencies": {
     "@nabla/vite-plugin-eslint": "^2.0.4",
-    "@remix-run/dev": "^2.10.3",
     "@stylistic/eslint-plugin": "^2.4.0",
     "@types/react": "^18.2.20",
     "@types/react-dom": "^18.2.7",
     "@typescript-eslint/eslint-plugin": "^6.7.4",
     "@typescript-eslint/parser": "^6.7.4",
+    "@vitejs/plugin-react": "^4.3.1",
     "eslint": "^8.38.0",
     "eslint-config-prettier": "^9.1.0",
     "eslint-import-resolver-typescript": "^3.6.1",
@@ -38,6 +42,7 @@
     "eslint-plugin-react": "^7.33.2",
     "eslint-plugin-react-hooks": "^4.6.0",
     "eslint-plugin-simple-import-sort": "^12.1.1",
+    "npm-run-all": "^4.1.5",
     "postcss": "^8.4.38",
     "postcss-preset-mantine": "^1.17.0",
     "postcss-simple-vars": "^7.0.1",
@@ -45,8 +50,5 @@
     "typescript": "^5.1.6",
     "vite": "^5.1.0",
     "vite-tsconfig-paths": "^4.2.1"
-  },
-  "engines": {
-    "node": ">=20.0.0"
   }
 }
