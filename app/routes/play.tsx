@@ -1,3 +1,4 @@
+import { AppShell } from '@mantine/core'
 import { type MetaFunction } from '@remix-run/node'
 import { useMemo } from 'react'
 
@@ -14,5 +15,14 @@ export default function Play() {
 		return getRandomLocation()
 	}, [])
 
-	return <Sidebar location={location} mainSection={<Map mapName='farm' />} />
+	return (
+		<AppShell navbar={{ width: 300, breakpoint: 'sm' }}>
+			<AppShell.Navbar>
+				<Sidebar location={location} />
+			</AppShell.Navbar>
+			<AppShell.Main>
+				<Map mapName='farm' location={location} />
+			</AppShell.Main>
+		</AppShell>
+	)
 }

@@ -2,12 +2,15 @@ import { Box } from '@mantine/core'
 import { useCallback, useEffect, useMemo, useState } from 'react'
 import { TransformComponent, TransformWrapper } from 'react-zoom-pan-pinch'
 
+import { type Location } from '~/utils/getRandomLocation'
+
 type MapProps = {
 	/** Must be a file from /public/maps/*.png */
 	mapName: string
+	location: Location
 }
 
-export default function Map({ mapName }: MapProps) {
+export default function Map({ mapName, location }: MapProps) {
 	const src = `/maps/${mapName}.png`
 
 	const [container, setContainer] = useState<HTMLDivElement | null>(null)
@@ -62,6 +65,7 @@ export default function Map({ mapName }: MapProps) {
 					initialScale={imageScale}
 					minScale={imageScale}
 					maxScale={imageScale * 8}
+					doubleClick={{ disabled: true }}
 					centerOnInit
 				>
 					<TransformComponent
@@ -71,7 +75,8 @@ export default function Map({ mapName }: MapProps) {
 						}}
 					>
 						<img alt={`Map of ${mapName}`} src={src} />
-						<Pin x={640} y={0} width={32} height={32} />
+						<CorrectLocation location={location} />
+						<MoveArea x={640} y={0} width={32} height={32} />
 					</TransformComponent>
 				</TransformWrapper>
 			)}
@@ -79,14 +84,14 @@ export default function Map({ mapName }: MapProps) {
 	)
 }
 
-type PinProps = {
+type MoveAreaProps = {
 	x: number
 	y: number
 	width: number
 	height: number
 }
 
-function Pin({ x, y, width, height }: PinProps) {
+function MoveArea({ x, y, width, height }: MoveAreaProps) {
 	return (
 		<Box
 			style={{
@@ -99,6 +104,27 @@ function Pin({ x, y, width, height }: PinProps) {
 				marginLeft: `${x}px`,
 				marginTop: `${y}px`
 			}}
+			onClick={event => console.log(event)}
+		/>
+	)
+}
+
+type CorrectLocationProps = {
+	location: Location
+}
+
+function CorrectLocation({ location }: CorrectLocationProps) {
+	return (
+		<Box
+			style={{
+				position: 'absolute',
+				zIndex: 2,
+				width: '64px',
+				height: '64px',
+				marginLeft: `${location.x}px`,
+				marginTop: `${location.y}px`
+			}}
+			onDoubleClick={() => console.log('Found!')}
 		/>
 	)
 }
