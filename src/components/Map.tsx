@@ -1,15 +1,15 @@
 import { Box } from '@mantine/core'
 import { useCallback, useEffect, useMemo, useState } from 'react'
 import { TransformComponent, TransformWrapper } from 'react-zoom-pan-pinch'
-import { type Location } from 'src/utils/getRandomLocation'
+
+import { useGameStore } from '~/state/useGameStore'
 
 type MapProps = {
 	/** Must be a file from /public/maps/*.png */
 	mapName: string
-	location: Location
 }
 
-export default function Map({ mapName, location }: MapProps) {
+export default function Map({ mapName }: MapProps) {
 	const src = `/maps/${mapName}.png`
 
 	const [container, setContainer] = useState<HTMLDivElement | null>(null)
@@ -74,7 +74,7 @@ export default function Map({ mapName, location }: MapProps) {
 						}}
 					>
 						<img alt={`Map of ${mapName}`} src={src} />
-						<CorrectLocation location={location} />
+						<CorrectLocation />
 						<MoveArea x={640} y={0} width={32} height={32} />
 					</TransformComponent>
 				</TransformWrapper>
@@ -108,11 +108,10 @@ function MoveArea({ x, y, width, height }: MoveAreaProps) {
 	)
 }
 
-type CorrectLocationProps = {
-	location: Location
-}
+function CorrectLocation() {
+	const location = useGameStore(state => state.location)!
+	const finishGame = useGameStore(state => state.finishGame)
 
-function CorrectLocation({ location }: CorrectLocationProps) {
 	return (
 		<Box
 			style={{
@@ -123,7 +122,7 @@ function CorrectLocation({ location }: CorrectLocationProps) {
 				marginLeft: `${location.x}px`,
 				marginTop: `${location.y}px`
 			}}
-			onDoubleClick={() => console.log('Found!')}
+			onDoubleClick={finishGame}
 		/>
 	)
 }
