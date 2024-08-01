@@ -122,8 +122,7 @@ function MoveArea({
 				width: `${width}px`,
 				height: `${height}px`,
 				marginLeft: `${x}px`,
-				marginTop: `${y}px`,
-				cursor: 'pointer'
+				marginTop: `${y}px`
 			}}
 			onClick={() => {
 				changeMap(name)

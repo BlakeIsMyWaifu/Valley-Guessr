@@ -21,3 +21,4 @@ async function generateTypes(folder) {
 
 await generateTypes('location')
 await generateTypes('map')
+await generateTypes('totem')
