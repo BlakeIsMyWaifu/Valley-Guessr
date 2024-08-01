@@ -8,7 +8,7 @@ export default function Sidebar() {
 	return (
 		<Stack gap='md'>
 			<Title style={{ textAlign: 'center' }}>Valley Guessr</Title>
-			<Image src={`/locations/${location.image}.png`} />
+			<Image src={`/location/${location.image}.png`} />
 		</Stack>
 	)
 }

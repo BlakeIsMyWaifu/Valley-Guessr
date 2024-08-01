@@ -1,6 +1,9 @@
+import { type LocationName } from '~/generated/LOCATION'
+import { type MapName } from '~/generated/MAP'
+
 export type Location = {
-	image: string
-	map: string
+	image: LocationName
+	map: MapName
 	x: number
 	y: number
 }

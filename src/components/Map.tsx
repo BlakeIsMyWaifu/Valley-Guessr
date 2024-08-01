@@ -1,16 +1,14 @@
-import { Box } from '@mantine/core'
+import { Box, UnstyledButton } from '@mantine/core'
 import { useCallback, useEffect, useMemo, useState } from 'react'
-import { TransformComponent, TransformWrapper } from 'react-zoom-pan-pinch'
+import { TransformComponent, TransformWrapper, useControls } from 'react-zoom-pan-pinch'
 
+import { getValleyMapData, type ValleyMap } from '~/data/maps'
 import { useGameStore } from '~/state/useGameStore'
 
-type MapProps = {
-	/** Must be a file from /public/maps/*.png */
-	mapName: string
-}
+export default function Map() {
+	const currentMap = useGameStore(state => state.currentMap)
 
-export default function Map({ mapName }: MapProps) {
-	const src = `/maps/${mapName}.png`
+	const src = `/map/${currentMap}.png`
 
 	const [container, setContainer] = useState<HTMLDivElement | null>(null)
 
@@ -73,9 +71,9 @@ export default function Map({ mapName }: MapProps) {
 							height: '100%'
 						}}
 					>
-						<img alt={`Map of ${mapName}`} src={src} />
+						<img alt={`Map of ${currentMap}`} src={src} />
 						<CorrectLocation />
-						<MoveArea x={640} y={0} width={32} height={32} />
+						<MoveAreas imageScale={imageScale} />
 					</TransformComponent>
 				</TransformWrapper>
 			)}
@@ -83,28 +81,63 @@ export default function Map({ mapName }: MapProps) {
 	)
 }
 
-type MoveAreaProps = {
-	x: number
-	y: number
-	width: number
-	height: number
+type MoveAreasProps = {
+	imageScale: number
 }
 
-function MoveArea({ x, y, width, height }: MoveAreaProps) {
+function MoveAreas({ imageScale }: MoveAreasProps) {
+	const currentMap = useGameStore(state => state.currentMap)
+	const mapData = getValleyMapData(currentMap)
+
+	const { centerView } = useControls()
+
+	useEffect(() => {
+		centerView(imageScale)
+	}, [centerView, imageScale])
+
+	return mapData.links.map(link => {
+		return <MoveArea key={link.name} link={link} />
+	})
+}
+
+type MoveAreaProps = {
+	link: ValleyMap['links'][number]
+}
+
+function MoveArea({
+	link: {
+		name,
+		cords: [x, y],
+		size: [width, height] = [32, 32]
+	}
+}: MoveAreaProps) {
+	const changeMap = useGameStore(state => state.changeMap)
+
 	return (
-		<Box
+		<UnstyledButton
 			style={{
-				backgroundColor: 'green',
-				opacity: '0.5',
 				position: 'absolute',
+				border: 'black solid 1px',
 				zIndex: 2,
 				width: `${width}px`,
 				height: `${height}px`,
 				marginLeft: `${x}px`,
-				marginTop: `${y}px`
+				marginTop: `${y}px`,
+				cursor: 'pointer'
 			}}
-			onClick={event => console.log(event)}
-		/>
+			onClick={() => {
+				changeMap(name)
+			}}
+		>
+			<Box
+				style={{
+					position: 'absolute',
+					inset: 0,
+					backgroundColor: 'green',
+					opacity: '0.5'
+				}}
+			/>
+		</UnstyledButton>
 	)
 }
 

@@ -39,6 +39,9 @@ importers:
       '@stylistic/eslint-plugin':
         specifier: ^2.4.0
         version: 2.4.0(eslint@8.57.0)(typescript@5.5.4)
+      '@types/node':
+        specifier: ^22.0.0
+        version: 22.0.0
       '@types/react':
         specifier: ^18.2.20
         version: 18.3.3
@@ -2644,7 +2647,6 @@ snapshots:
   '@types/node@22.0.0':
     dependencies:
       undici-types: 6.11.1
-    optional: true
 
   '@types/prop-types@15.7.12': {}
 
@@ -4359,8 +4361,7 @@ snapshots:
       has-symbols: 1.0.3
       which-boxed-primitive: 1.0.2
 
-  undici-types@6.11.1:
-    optional: true
+  undici-types@6.11.1: {}
 
   update-browserslist-db@1.1.0(browserslist@4.23.2):
     dependencies:

@@ -13,7 +13,7 @@ export default function Play() {
 				<Sidebar />
 			</AppShell.Navbar>
 			<AppShell.Main>
-				<Map mapName='farm' />
+				<Map />
 			</AppShell.Main>
 		</AppShell>
 	) : null
