@@ -10,11 +10,13 @@ import { createActionName, persistStoreName, type Slice } from './storeTypes'
 type GameState = {
 	location: Location | null
 	currentMap: MapName
+	startTime: number
 }
 
 const gameState: GameState = {
 	location: null,
-	currentMap: 'farm'
+	currentMap: 'farm',
+	startTime: 0
 }
 
 type GameAction = {
@@ -28,7 +30,13 @@ const actionName = createActionName<GameAction>('game')
 
 const createGameAction: Slice<GameStore, GameAction> = (set, get) => ({
 	startGame: () => {
-		set({ ...gameState }, ...actionName('startGame'))
+		set(
+			{
+				currentMap: 'farm',
+				startTime: +new Date()
+			},
+			...actionName('startGame')
+		)
 
 		const location = getRandomLocation()
 		get().changeLocation(location)
@@ -36,7 +44,8 @@ const createGameAction: Slice<GameStore, GameAction> = (set, get) => ({
 
 	finishGame: () => {
 		Router.push('home')
-		get().changeLocation(null)
+
+		set(gameState, ...actionName('finishGame'))
 	},
 
 	changeLocation: location => {
