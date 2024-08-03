@@ -96,7 +96,7 @@ function MoveAreas({ imageScale }: MoveAreasProps) {
 	}, [centerView, imageScale])
 
 	return mapData.links.map(link => {
-		return <MoveArea key={link.name} link={link} />
+		return <MoveArea key={link.name + link.cords[0]} link={link} />
 	})
 }
 
@@ -108,7 +108,7 @@ function MoveArea({
 	link: {
 		name,
 		cords: [x, y],
-		size: [width, height] = [32, 32]
+		size: [width, height]
 	}
 }: MoveAreaProps) {
 	const changeMap = useGameStore(state => state.changeMap)

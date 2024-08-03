@@ -14,11 +14,10 @@ module.exports = {
 		commonjs: true,
 		es6: true
 	},
-	ignorePatterns: ['!**/.server', '!**/.client'],
 	extends: ['eslint:recommended'],
 	overrides: [
 		{
-			files: ['**/*.{js,jsx,cjs,ts,tsx}'],
+			files: ['**/*.{js,jsx,cjs,mjs,ts,tsx}'],
 			plugins: ['react', 'react-hooks', 'jsx-a11y', '@stylistic', 'simple-import-sort'],
 			extends: [
 				'plugin:react/recommended',

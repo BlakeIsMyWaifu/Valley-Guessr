@@ -36,6 +36,9 @@
     "vite.config.ts",
     "postcss.config.cjs"
   ],
+  "exclude": [
+    "src/generated/*.ts"
+  ],
   "references": [
     {
       "path": "./tsconfig.node.json"
