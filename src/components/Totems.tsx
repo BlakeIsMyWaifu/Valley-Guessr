@@ -10,7 +10,7 @@ export default function Totems() {
 			<Totem name='mountain' />
 			<Totem name='beach' />
 			<Totem name='desert' />
-			<Totem name='island' />
+			<Totem name='islandResort' />
 		</Group>
 	)
 }
