@@ -35,7 +35,7 @@ const valleyMapsData: Record<MapName, ValleyMap['links']> = {
 
 	bus: [
 		{ name: 'backwoods', cords: [0, 96], size: [200, 64] },
-		{ name: 'desert', cords: [344, 116], size: [32, 48] },
+		{ name: 'desert', cords: [353, 124], size: [14, 36] },
 		{ name: 'farm', cords: [0, 348], size: [192, 64] },
 		{ name: 'pelican', cords: [620, 348], size: [128, 64] }
 	],
@@ -73,7 +73,7 @@ const valleyMapsData: Record<MapName, ValleyMap['links']> = {
 	crystalPuzzle: [{ name: 'islandFarm', cords: [94, 160], size: [24, 16] }],
 
 	desert: [
-		{ name: 'bus', cords: [280, 404], size: [32, 48] },
+		{ name: 'bus', cords: [289, 412], size: [14, 36] },
 		{ name: 'oasis', cords: [96, 800], size: [16, 31] },
 		{ name: 'skullCavern', cords: [125, 64], size: [22, 38] }
 	],
@@ -84,7 +84,7 @@ const valleyMapsData: Record<MapName, ValleyMap['links']> = {
 		{ name: 'backwoods', cords: [640, 0], size: [32, 32] },
 		{ name: 'bus', cords: [1248, 236], size: [32, 64] },
 		{ name: 'cindersap', cords: [638, 1008], size: [32, 32] },
-		{ name: 'greenhouse', cords: [20, 27], size: [20, 27] },
+		{ name: 'greenhouse', cords: [446, 229], size: [20, 27] },
 		{ name: 'home', cords: [1024, 210], size: [16, 31] },
 		{ name: 'mushroomCave', cords: [540, 78], size: [24, 48] }
 	],
