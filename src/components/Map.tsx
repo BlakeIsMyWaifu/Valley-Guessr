@@ -141,7 +141,10 @@ function MoveArea({
 }
 
 function CorrectLocation() {
-	const location = useGameStore(state => state.location)!
+	const {
+		cords: [x, y],
+		size = 32
+	} = useGameStore(state => state.location)!
 	const finishGame = useGameStore(state => state.finishGame)
 
 	return (
@@ -149,10 +152,10 @@ function CorrectLocation() {
 			style={{
 				position: 'absolute',
 				zIndex: 2,
-				width: '64px',
-				height: '64px',
-				marginLeft: `${location.x}px`,
-				marginTop: `${location.y}px`
+				width: `${size}px`,
+				height: `${size}px`,
+				marginLeft: `${x}px`,
+				marginTop: `${y}px`
 			}}
 			onDoubleClick={finishGame}
 		/>

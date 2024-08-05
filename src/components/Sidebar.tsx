@@ -13,7 +13,7 @@ export default function Sidebar() {
 			<Stack gap='md' mt='md' mb='md'>
 				<Title ta='center'>Valley Guessr</Title>
 				<Timer />
-				<Image src={`/location/${location.image}.png`} />
+				<Image src={`/location/${location.name}.png`} />
 				<Totems />
 			</Stack>
 		</ScrollArea>

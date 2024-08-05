@@ -1,9 +1,9 @@
 import { create } from 'zustand'
 import { devtools, persist } from 'zustand/middleware'
 
+import { getRandomLocation, type Location } from '~/data/locations'
 import { type MapName } from '~/generated/MAP'
 import Router from '~/routes/router'
-import getRandomLocation, { type Location } from '~/utils/getRandomLocation'
 
 import { createActionName, persistStoreName, type Slice } from './storeTypes'
 
