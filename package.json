@@ -23,11 +23,10 @@
   "dependencies": {
     "@mantine/core": "^7.11.2",
     "@mantine/hooks": "^7.11.2",
-    "@swan-io/chicane": "^2.1.0",
+    "@tanstack/react-router": "^1.46.4",
     "react": "^18.3.1",
     "react-dom": "^18.3.1",
     "react-zoom-pan-pinch": "^3.6.1",
-    "ts-pattern": "^5.2.0",
     "zustand": "^4.5.4"
   },
   "devDependencies": {

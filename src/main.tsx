@@ -1,13 +1,15 @@
-import React from 'react'
+import { RouterProvider } from '@tanstack/react-router'
+import { StrictMode } from 'react'
 import ReactDOM from 'react-dom/client'
 
-import App from '~/App.tsx'
-import Mantine from '~/components/Mantine.tsx'
+import { router } from './routes/router'
 
-ReactDOM.createRoot(document.getElementById('root')!).render(
-	<React.StrictMode>
-		<Mantine>
-			<App />
-		</Mantine>
-	</React.StrictMode>
-)
+const rootElement = document.getElementById('root')!
+if (!rootElement.innerHTML) {
+	const root = ReactDOM.createRoot(rootElement)
+	root.render(
+		<StrictMode>
+			<RouterProvider router={router} />
+		</StrictMode>
+	)
+}

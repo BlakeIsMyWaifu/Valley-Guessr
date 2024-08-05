@@ -3,7 +3,7 @@ import { devtools, persist } from 'zustand/middleware'
 
 import { getRandomLocation, type Location } from '~/data/locations'
 import { type MapName } from '~/generated/MAP'
-import Router from '~/routes/router'
+import { router } from '~/routes/router'
 
 import { createActionName, persistStoreName, type Slice } from './storeTypes'
 
@@ -43,7 +43,7 @@ const createGameAction: Slice<GameStore, GameAction> = (set, get) => ({
 	},
 
 	finishGame: () => {
-		Router.push('home')
+		router.navigate({ to: '/' }).catch(console.error)
 
 		set(gameState, ...actionName('finishGame'))
 	},

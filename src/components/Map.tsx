@@ -4,11 +4,12 @@ import { TransformComponent, TransformWrapper, useControls } from 'react-zoom-pa
 
 import { getValleyMapData, type ValleyMap } from '~/data/maps'
 import { useGameStore } from '~/state/useGameStore'
+import { publicPath } from '~/utils/publicPath'
 
 export default function Map() {
 	const currentMap = useGameStore(state => state.currentMap)
 
-	const src = `/map/${currentMap}.png`
+	const src = `${publicPath}/map/${currentMap}.png`
 
 	const [container, setContainer] = useState<HTMLDivElement | null>(null)
 
