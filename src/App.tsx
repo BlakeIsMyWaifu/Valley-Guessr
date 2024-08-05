@@ -1,8 +1,8 @@
 import { match } from 'ts-pattern'
 
-import Home from './routes/Home'
-import Play from './routes/Play'
-import Router from './routes/router'
+import Home from '~/routes/Home'
+import Play from '~/routes/Play'
+import Router from '~/routes/router'
 
 export default function App() {
 	const route = Router.useRoute(['home', 'play'])
