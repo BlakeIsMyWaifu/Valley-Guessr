@@ -17,6 +17,5 @@ export type ${folder.charAt(0).toUpperCase() + folder.slice(1)}Name = (typeof ${
 	console.log(`✅ Create a '${folder}' type`)
 }
 
-await generateTypes('location')
 await generateTypes('map')
 await generateTypes('totem')

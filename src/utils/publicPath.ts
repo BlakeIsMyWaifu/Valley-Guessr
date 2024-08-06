@@ -1,1 +1,1 @@
-export const publicPath = '/Valley-Guessr/'
+export const publicPath = '/Valley-Guessr'

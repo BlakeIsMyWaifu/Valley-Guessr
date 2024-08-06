@@ -57,7 +57,7 @@ const valleyMapsData: Record<MapName, ValleyMap['links']> = {
 		{ name: 'leah', cords: [1660, 492], size: [24, 36] },
 		{ name: 'masteryCave', cords: [1616, 1120], size: [18, 42] },
 		{ name: 'pelican', cords: [1888, 365], size: [32, 80] },
-		{ name: 'ranch', cords: [1436, 221], size: [24, 36] },
+		{ name: 'ranch', cords: [1440, 224], size: [16, 31] },
 		{ name: 'secretWoods', cords: [0, 91], size: [16, 27] },
 		{ name: 'sewer', cords: [1488, 1552], size: [48, 48] },
 		{ name: 'wizard', cords: [73, 387], size: [32, 48] }
