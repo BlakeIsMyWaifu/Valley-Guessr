@@ -1,8 +1,9 @@
-import { Box, Button, Stack, Title } from '@mantine/core'
+import { Button, Image, Modal, Stack, Title } from '@mantine/core'
 import { createRoute, Link } from '@tanstack/react-router'
 
 import { useGameStore } from '~/state/useGameStore'
 import { useProgressStore } from '~/state/useProgressStore'
+import { publicPath } from '~/utils/publicPath'
 
 import { rootRoute } from './Root'
 
@@ -17,14 +18,23 @@ function Home() {
 	const incomplete = useProgressStore(state => state.incomplete)
 
 	return (
-		<Box component={Stack} align='center' justify='center' style={{ height: '100vh' }}>
-			<Title>Valley Guessr</Title>
-			<Button component={Link} to='/play' onClick={startGame} disabled={!incomplete.length}>
-				Play
-			</Button>
-			<Button component={Link} to='/progress'>
-				Progress
-			</Button>
-		</Box>
+		<>
+			<Modal opened onClose={() => null} centered withCloseButton={false} overlayProps={{ blur: 3 }}>
+				<Stack align='center' justify='center' p='xl'>
+					<Title>Valley Guessr</Title>
+					<Button component={Link} to='/play' onClick={startGame} disabled={!incomplete.length} fullWidth>
+						Play
+					</Button>
+					<Button component={Link} to='/progress' fullWidth>
+						Progress
+					</Button>
+				</Stack>
+			</Modal>
+
+			<Image
+				src={`${publicPath}/map/pelican.png`}
+				style={{ position: 'absolute', inset: 0, height: '100vh', overflow: 'hidden' }}
+			/>
+		</>
 	)
 }
