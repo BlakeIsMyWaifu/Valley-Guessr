@@ -28,15 +28,27 @@ const actionName = createActionName<ProgressAction>('progress')
 const createProgressAction: Slice<ProgressStore, ProgressAction> = (set, get) => ({
 	addCompleted: (location, time) => {
 		const incomplete = new Set(get().incomplete)
-		incomplete.delete(location)
 
-		set(
-			state => ({
-				completed: [...state.completed, { ...location, time }],
-				incomplete: [...incomplete]
-			}),
-			...actionName('addCompleted')
-		)
+		if (incomplete.has(location)) {
+			incomplete.delete(location)
+
+			set(
+				state => ({
+					completed: [...state.completed, { ...location, time }],
+					incomplete: [...incomplete]
+				}),
+				...actionName('addCompleted/newTime')
+			)
+		} else {
+			const { completed } = get()
+			const index = completed.findIndex(({ map, cords }) => map === location.map && cords === location.cords)
+			if (completed[index].time < time) return
+
+			const newCompleted = structuredClone(completed)
+			newCompleted[index].time = time
+
+			set({ completed: newCompleted }, ...actionName('addCompleted/updatedTime'))
+		}
 	},
 
 	updateIncomplete: () => {

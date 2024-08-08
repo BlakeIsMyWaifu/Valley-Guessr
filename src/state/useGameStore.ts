@@ -39,10 +39,14 @@ const createGameAction: Slice<GameStore, GameAction> = (set, get) => ({
 			...actionName('startGame')
 		)
 
-		const { incomplete } = useProgressStore.getState()
-		const random = ~~(Math.random() * incomplete.length)
-		const location = incomplete[random]
-		get().changeLocation(location)
+		const { incomplete, completed } = useProgressStore.getState()
+
+		const randomLocation = (locations: Location[]) => {
+			const random = ~~(Math.random() * locations.length)
+			get().changeLocation(locations[random])
+		}
+
+		randomLocation(incomplete.length ? incomplete : completed)
 	},
 
 	finishGame: () => {
