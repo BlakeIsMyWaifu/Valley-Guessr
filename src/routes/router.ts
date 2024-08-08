@@ -4,7 +4,9 @@ import { indexRoute } from '~/routes/Home'
 import { playRoute } from '~/routes/Play'
 import { rootRoute } from '~/routes/Root'
 
-const routeTree = rootRoute.addChildren([indexRoute, playRoute])
+import { progressRoute } from './Progress'
+
+const routeTree = rootRoute.addChildren([indexRoute, playRoute, progressRoute])
 
 const memoryHistory = createMemoryHistory({
 	initialEntries: ['/']

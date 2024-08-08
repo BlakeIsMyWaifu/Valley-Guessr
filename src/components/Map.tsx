@@ -144,7 +144,7 @@ function MoveArea({
 function CorrectLocation() {
 	const {
 		cords: [x, y],
-		size = 32
+		size
 	} = useGameStore(state => state.location)!
 	const finishGame = useGameStore(state => state.finishGame)
 

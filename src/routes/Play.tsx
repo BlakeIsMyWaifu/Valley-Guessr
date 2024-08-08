@@ -1,10 +1,13 @@
-import { AppShell } from '@mantine/core'
+import { AppShell, ScrollArea, Stack, Title } from '@mantine/core'
 import { createRoute } from '@tanstack/react-router'
 import Map from 'src/components/Map'
-import Sidebar from 'src/components/Sidebar'
 
-import { rootRoute } from '~/routes/Root'
+import LocationImage from '~/components/LocationImage'
+import Timer from '~/components/Timer'
+import Totems from '~/components/Totems'
 import { useGameStore } from '~/state/useGameStore'
+
+import { rootRoute } from './Root'
 
 export const playRoute = createRoute({
 	getParentRoute: () => rootRoute,
@@ -25,4 +28,19 @@ function Play() {
 			</AppShell.Main>
 		</AppShell>
 	) : null
+}
+
+function Sidebar() {
+	const location = useGameStore(state => state.location)!
+
+	return (
+		<ScrollArea scrollbars='y'>
+			<Stack gap='md' mt='md' mb='md'>
+				<Title ta='center'>Valley Guessr</Title>
+				<Timer />
+				<LocationImage location={location} />
+				<Totems />
+			</Stack>
+		</ScrollArea>
+	)
 }

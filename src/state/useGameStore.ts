@@ -1,11 +1,12 @@
 import { create } from 'zustand'
 import { devtools, persist } from 'zustand/middleware'
 
-import { getRandomLocation, type Location } from '~/data/locations'
+import { type Location } from '~/data/locations'
 import { type MapName } from '~/generated/MAP'
 import { router } from '~/routes/router'
 
 import { createActionName, persistStoreName, type Slice } from './storeTypes'
+import { useProgressStore } from './useProgressStore'
 
 type GameState = {
 	location: Location | null
@@ -38,11 +39,20 @@ const createGameAction: Slice<GameStore, GameAction> = (set, get) => ({
 			...actionName('startGame')
 		)
 
-		const location = getRandomLocation()
+		const { incomplete } = useProgressStore.getState()
+		const random = ~~(Math.random() * incomplete.length)
+		const location = incomplete[random]
 		get().changeLocation(location)
 	},
 
 	finishGame: () => {
+		const { location } = get()
+		if (!location) return
+
+		const timeTaken = +new Date() - get().startTime
+
+		useProgressStore.getState().addCompleted(location, timeTaken)
+
 		router.navigate({ to: '/' }).catch(console.error)
 
 		set(gameState, ...actionName('finishGame'))

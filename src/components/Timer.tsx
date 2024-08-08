@@ -4,6 +4,7 @@ import { useState } from 'react'
 
 import { useMountEffect } from '~/hooks/useMountEffect'
 import { useGameStore } from '~/state/useGameStore'
+import { formatTime } from '~/utils/formatTime'
 
 export default function Timer() {
 	const startTime = useGameStore(state => state.startTime)
@@ -13,23 +14,7 @@ export default function Timer() {
 	const { start, stop } = useInterval(() => {
 		const currentTime = +new Date()
 		const difference = currentTime - startTime
-		setTime(() => {
-			const hours = ~~((difference / (1000 * 60 * 60)) % 24)
-			const minutes = ~~((difference / 1000 / 60) % 60)
-			const seconds = ~~((difference / 1000) % 60)
-			const microseconds = difference % 60
-			return [hours, minutes, seconds, microseconds]
-				.map(value => value.toString().padStart(2, '0'))
-				.reduce(
-					(accumulator, currentValue) =>
-						currentValue === '00' && !accumulator
-							? ''
-							: accumulator
-								? `${accumulator}:${currentValue}`
-								: currentValue,
-					''
-				)
-		})
+		setTime(() => formatTime(difference))
 	}, 50)
 
 	useMountEffect(() => {
