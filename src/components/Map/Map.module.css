@@ -1,0 +1,12 @@
+.MoveAreaBackground {
+	position: absolute;
+	inset: 0;
+	background: linear-gradient(0deg, #ffffff, green);
+	background-size: 400% 400%;
+	animation: ColourGradient 2s ease infinite;
+}
+@keyframes ColourGradient {
+	0% { background-position: 50% 0%}
+	50% { background-position: 50% 100%}
+	100% { background-position: 50% 0%}
+}

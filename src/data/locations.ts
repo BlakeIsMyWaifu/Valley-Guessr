@@ -9,6 +9,8 @@ export type Location = {
 
 type Optional<T, K extends keyof T> = Pick<Partial<T>, K> & Omit<T, K>
 
+// TODO Joja
+
 export const locationData = (
 	[
 		{ map: 'adventureGuild', cords: [103, 154] },

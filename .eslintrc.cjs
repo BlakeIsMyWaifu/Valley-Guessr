@@ -17,7 +17,7 @@ module.exports = {
 	extends: ['eslint:recommended'],
 	overrides: [
 		{
-			files: ['**/*.{js,jsx,cjs,mjs,ts,tsx}'],
+			files: ['**/*.{js,jsx,cjs,mjs,ts,tsx,css}'],
 			plugins: ['react', 'react-hooks', 'jsx-a11y', '@stylistic', 'simple-import-sort'],
 			extends: [
 				'plugin:react/recommended',
@@ -51,8 +51,7 @@ module.exports = {
 				],
 				'react-hooks/rules-of-hooks': 'error',
 				'react-hooks/exhaustive-deps': 'warn',
-				'react/react-in-jsx-scope': 'off',
-				'@stylistic/quotes': ['warn', 'single']
+				'react/react-in-jsx-scope': 'off'
 			}
 		},
 		{

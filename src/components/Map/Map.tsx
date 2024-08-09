@@ -6,6 +6,8 @@ import { getValleyMapData, type ValleyMap } from '~/data/maps'
 import { useGameStore } from '~/state/useGameStore'
 import { publicPath } from '~/utils/publicPath'
 
+import classes from './Map.module.css'
+
 export default function Map() {
 	const currentMap = useGameStore(state => state.currentMap)
 
@@ -119,24 +121,18 @@ function MoveArea({
 			style={{
 				position: 'absolute',
 				border: 'black solid 1px',
-				zIndex: 2,
+				zIndex: 1,
 				width: `${width}px`,
 				height: `${height}px`,
 				marginLeft: `${x}px`,
-				marginTop: `${y}px`
+				marginTop: `${y}px`,
+				opacity: '0.6'
 			}}
 			onClick={() => {
 				changeMap(name)
 			}}
 		>
-			<Box
-				style={{
-					position: 'absolute',
-					inset: 0,
-					backgroundColor: 'green',
-					opacity: '0.5'
-				}}
-			/>
+			<Box className={classes.MoveAreaBackground} />
 		</UnstyledButton>
 	)
 }
