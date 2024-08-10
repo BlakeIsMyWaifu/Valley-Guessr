@@ -1,8 +1,9 @@
 import { AppShell, Button, Card, Group, Image, Modal, Stack, Text, Title } from '@mantine/core'
-import { useDisclosure, useViewportSize } from '@mantine/hooks'
+import { useDisclosure } from '@mantine/hooks'
 import { createRoute, Link } from '@tanstack/react-router'
 
 import LocationImage from '~/components/LocationImage'
+import useIsDesktop from '~/hooks/useIsDesktop'
 import { type LocationTime, useProgressStore } from '~/state/useProgressStore'
 import { formatTime } from '~/utils/formatTime'
 import { publicPath } from '~/utils/publicPath'
@@ -16,9 +17,9 @@ export const progressRoute = createRoute({
 })
 
 function Progress() {
-	const { width } = useViewportSize()
+	const isDesktop = useIsDesktop()
 
-	return width >= 768 ? <DesktopProgress /> : <MobileProgress />
+	return isDesktop ? <DesktopProgress /> : <MobileProgress />
 }
 
 function DesktopProgress() {

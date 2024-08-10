@@ -1,19 +1,22 @@
 import { useEffect, useRef } from 'react'
 
 import { type Location } from '~/data/locations'
+import { useGameStore } from '~/state/useGameStore'
 import { publicPath } from '~/utils/publicPath'
 
 type LocationImageProps = {
-	location: Location
+	location?: Location
 	canvasSize?: number
 }
 
 export default function LocationImage({ location, canvasSize = 300 }: LocationImageProps) {
+	const gameLocation = useGameStore(state => state.location)!
+
 	const {
 		map,
 		cords: [x, y],
 		size
-	} = location
+	} = location ?? gameLocation ?? { map: 'farm', cords: [-1, -1], size: 0 }
 
 	const canvasRef = useRef<HTMLCanvasElement>(null)
 
@@ -30,5 +33,5 @@ export default function LocationImage({ location, canvasSize = 300 }: LocationIm
 		}
 	}, [map, size, x, y])
 
-	return <canvas ref={canvasRef} width={canvasSize} height={canvasSize} />
+	return size ? <canvas ref={canvasRef} width={canvasSize} height={canvasSize} /> : null
 }

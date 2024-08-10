@@ -1,8 +1,9 @@
 import { Box, Loader, UnstyledButton } from '@mantine/core'
-import { useCallback, useEffect, useMemo, useState } from 'react'
+import { useCallback, useEffect, useMemo, useRef, useState } from 'react'
 import { TransformComponent, TransformWrapper, useControls } from 'react-zoom-pan-pinch'
 
 import { getValleyMapData, type ValleyMap } from '~/data/maps'
+import useIsDesktop from '~/hooks/useIsDesktop'
 import { useGameStore } from '~/state/useGameStore'
 import { publicPath } from '~/utils/publicPath'
 
@@ -13,7 +14,7 @@ export default function Map() {
 
 	const src = `${publicPath}/map/${currentMap}.png`
 
-	const [container, setContainer] = useState<HTMLDivElement | null>(null)
+	const container = useRef<HTMLDivElement>(null)
 
 	const [containerWidth, setContainerWidth] = useState(0)
 	const [containerHeight, setContainerHeight] = useState(0)
@@ -29,8 +30,8 @@ export default function Map() {
 	}, [containerWidth, containerHeight, imageNaturalWidth, imageNaturalHeight])
 
 	const handleResize = useCallback(() => {
-		if (container) {
-			const rect = container.getBoundingClientRect()
+		if (container.current) {
+			const rect = container.current.getBoundingClientRect()
 			setContainerWidth(rect.width)
 			setContainerHeight(rect.height)
 		} else {
@@ -56,13 +57,16 @@ export default function Map() {
 		image.src = src
 	}, [src])
 
+	const isDesktop = useIsDesktop()
+
 	return (
 		<Box
 			style={{
-				width: '100%',
-				height: '100vh'
+				position: 'absolute',
+				inset: 0,
+				left: isDesktop ? '300px' : 0
 			}}
-			ref={setContainer}
+			ref={container}
 		>
 			{imageScale > 0 && (
 				<TransformWrapper
