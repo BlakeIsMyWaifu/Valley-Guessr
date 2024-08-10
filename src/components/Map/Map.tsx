@@ -1,4 +1,4 @@
-import { Box, UnstyledButton } from '@mantine/core'
+import { Box, Loader, UnstyledButton } from '@mantine/core'
 import { useCallback, useEffect, useMemo, useState } from 'react'
 import { TransformComponent, TransformWrapper, useControls } from 'react-zoom-pan-pinch'
 
@@ -20,6 +20,8 @@ export default function Map() {
 
 	const [imageNaturalWidth, setImageNaturalWidth] = useState(0)
 	const [imageNaturalHeight, setImageNaturalHeight] = useState(0)
+
+	const [imageLoaded, setImageLoaded] = useState(false)
 
 	const imageScale = useMemo(() => {
 		if (!containerWidth || !containerHeight || !imageNaturalWidth || !imageNaturalHeight) return 0
@@ -45,7 +47,9 @@ export default function Map() {
 
 	useEffect(() => {
 		const image = new Image()
+		setImageLoaded(false)
 		image.onload = () => {
+			setImageLoaded(true)
 			setImageNaturalWidth(image.naturalWidth)
 			setImageNaturalHeight(image.naturalHeight)
 		}
@@ -74,11 +78,21 @@ export default function Map() {
 							height: '100%'
 						}}
 					>
-						<img alt={`Map of ${currentMap}`} src={src} />
-						<CorrectLocation />
-						<MoveAreas imageScale={imageScale} />
+						{imageLoaded && (
+							<>
+								<img alt={`Map of ${currentMap}`} src={src} />
+								<CorrectLocation />
+								<MoveAreas imageScale={imageScale} />
+							</>
+						)}
 					</TransformComponent>
 				</TransformWrapper>
+			)}
+			{!imageLoaded && (
+				<Loader
+					size={64}
+					style={{ position: 'absolute', top: '50%', left: 'calc(50% + 150px)', translate: '-50% -50%' }}
+				/>
 			)}
 		</Box>
 	)

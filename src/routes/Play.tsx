@@ -4,7 +4,10 @@ import { createRoute } from '@tanstack/react-router'
 import EndModal from '~/components/EndModal'
 import Map from '~/components/Map'
 import PlaySidebar from '~/components/PlaySidebar'
+import { getValleyMapData } from '~/data/maps'
+import useImagePreloader from '~/hooks/useImagePreload'
 import { useGameStore } from '~/state/useGameStore'
+import { publicPath } from '~/utils/publicPath'
 
 import { rootRoute } from './Root'
 
@@ -16,6 +19,9 @@ export const playRoute = createRoute({
 
 function Play() {
 	const location = useGameStore(state => state.location)
+
+	const currentMap = useGameStore(state => state.currentMap)
+	useImagePreloader(getValleyMapData(currentMap).links.map(({ name }) => `${publicPath}/map/${name}.png`))
 
 	return location ? (
 		<>

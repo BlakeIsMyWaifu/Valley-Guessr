@@ -1,5 +1,5 @@
 import { type EffectCallback, useEffect } from 'react'
 
-export const useMountEffect = (func: EffectCallback) => {
+export default function useMountEffect(func: EffectCallback) {
 	useEffect(func, [func])
 }
