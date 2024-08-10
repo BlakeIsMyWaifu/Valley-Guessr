@@ -165,7 +165,10 @@ function CorrectLocation() {
 	} = useGameStore(state => state.location)!
 	const finishGame = useGameStore(state => state.finishGame)
 
-	return (
+	const location = useGameStore(state => state.location)
+	const currentMap = useGameStore(state => state.currentMap)
+
+	return location?.map === currentMap ? (
 		<Box
 			style={{
 				position: 'absolute',
@@ -177,5 +180,5 @@ function CorrectLocation() {
 			}}
 			onDoubleClick={finishGame}
 		/>
-	)
+	) : null
 }
