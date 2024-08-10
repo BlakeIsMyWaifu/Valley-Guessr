@@ -1,4 +1,5 @@
-import { AppShell, Button, Card, Group, Image, Stack, Text, Title } from '@mantine/core'
+import { AppShell, Button, Card, Group, Image, Modal, Stack, Text, Title } from '@mantine/core'
+import { useDisclosure } from '@mantine/hooks'
 import { createRoute, Link } from '@tanstack/react-router'
 
 import LocationImage from '~/components/LocationImage'
@@ -30,25 +31,56 @@ function Progress() {
 function Sidebar() {
 	const completed = useProgressStore(state => state.completed)
 	const incomplete = useProgressStore(state => state.incomplete)
+
+	const [opened, { open, close }] = useDisclosure(false)
+
+	return (
+		<>
+			<Stack justify='space-between' style={{ height: '100%' }}>
+				<Stack gap='md' mt='md' mb='md'>
+					<Title ta='center'>Progress</Title>
+					<Title ta='center' order={2}>
+						{completed.length} / {completed.length + incomplete.length}
+					</Title>
+				</Stack>
+				<Stack gap={0}>
+					<Button onClick={open} m='md' color='red'>
+						Reset Progress
+					</Button>
+					<Button component={Link} to='/' m='md'>
+						Home
+					</Button>
+				</Stack>
+			</Stack>
+
+			<ResetProgressModal opened={opened} close={close} />
+		</>
+	)
+}
+
+type ResetProgressModalProps = {
+	opened: boolean
+	close: () => void
+}
+
+function ResetProgressModal({ opened, close }: ResetProgressModalProps) {
 	const resetProgress = useProgressStore(state => state.resetProgress)
 
 	return (
-		<Stack justify='space-between' style={{ height: '100%' }}>
-			<Stack gap='md' mt='md' mb='md'>
-				<Title ta='center'>Progress</Title>
-				<Title ta='center' order={2}>
-					{completed.length} / {completed.length + incomplete.length}
-				</Title>
-			</Stack>
-			<Stack gap={0}>
-				<Button onClick={resetProgress} m='md' color='red'>
-					Reset Progress
+		<Modal opened={opened} onClose={close} title="Are you sure you want to reset all you're progress?">
+			<Group justify='center'>
+				<Button
+					color='red'
+					onClick={() => {
+						resetProgress()
+						close()
+					}}
+				>
+					Confirm
 				</Button>
-				<Button component={Link} to='/' m='md'>
-					Home
-				</Button>
-			</Stack>
-		</Stack>
+				<Button onClick={close}>Cancel</Button>
+			</Group>
+		</Modal>
 	)
 }
 
