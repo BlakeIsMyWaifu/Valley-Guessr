@@ -21,9 +21,9 @@
     "preview": "vite preview"
   },
   "dependencies": {
-    "@mantine/core": "^7.11.2",
-    "@mantine/hooks": "^7.11.2",
-    "@tanstack/react-router": "^1.46.4",
+    "@mantine/core": "^7.12.0",
+    "@mantine/hooks": "^7.12.0",
+    "@tanstack/react-router": "^1.47.1",
     "react": "^18.3.1",
     "react-dom": "^18.3.1",
     "react-zoom-pan-pinch": "^3.6.1",
@@ -31,8 +31,8 @@
   },
   "devDependencies": {
     "@nabla/vite-plugin-eslint": "^2.0.4",
-    "@stylistic/eslint-plugin": "^2.6.1",
-    "@types/node": "^22.1.0",
+    "@stylistic/eslint-plugin": "^2.6.2",
+    "@types/node": "^22.2.0",
     "@types/react": "^18.3.3",
     "@types/react-dom": "^18.3.0",
     "@typescript-eslint/eslint-plugin": "^6.21.0",
@@ -48,13 +48,13 @@
     "eslint-plugin-react-hooks": "^4.6.2",
     "eslint-plugin-simple-import-sort": "^12.1.1",
     "npm-run-all": "^4.1.5",
-    "postcss": "^8.4.40",
+    "postcss": "^8.4.41",
     "postcss-preset-mantine": "^1.17.0",
     "postcss-simple-vars": "^7.0.1",
     "prettier": "^3.3.3",
-    "tsx": "^4.16.5",
+    "tsx": "^4.17.0",
     "typescript": "^5.5.4",
-    "vite": "^5.3.5",
+    "vite": "^5.4.0",
     "vite-tsconfig-paths": "^4.3.2"
   }
 }

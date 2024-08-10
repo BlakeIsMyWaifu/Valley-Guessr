@@ -3,7 +3,6 @@ import { devtools, persist } from 'zustand/middleware'
 
 import { type Location } from '~/data/locations'
 import { type MapName } from '~/generated/MAP'
-import { router } from '~/routes/router'
 
 import { createActionName, persistStoreName, type Slice } from './storeTypes'
 import { useProgressStore } from './useProgressStore'
@@ -12,12 +11,14 @@ type GameState = {
 	location: Location | null
 	currentMap: MapName
 	startTime: number
+	finishTime: number
 }
 
 const gameState: GameState = {
 	location: null,
 	currentMap: 'farm',
-	startTime: 0
+	startTime: 0,
+	finishTime: 0
 }
 
 type GameAction = {
@@ -34,7 +35,8 @@ const createGameAction: Slice<GameStore, GameAction> = (set, get) => ({
 		set(
 			{
 				currentMap: 'farm',
-				startTime: +new Date()
+				startTime: +new Date(),
+				finishTime: 0
 			},
 			...actionName('startGame')
 		)
@@ -57,9 +59,7 @@ const createGameAction: Slice<GameStore, GameAction> = (set, get) => ({
 
 		useProgressStore.getState().addCompleted(location, timeTaken)
 
-		router.navigate({ to: '/' }).catch(console.error)
-
-		set(gameState, ...actionName('finishGame'))
+		set({ finishTime: timeTaken }, ...actionName('finishGame'))
 	},
 
 	changeLocation: location => {

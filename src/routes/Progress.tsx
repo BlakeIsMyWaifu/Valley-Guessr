@@ -41,7 +41,7 @@ function Sidebar() {
 				</Title>
 			</Stack>
 			<Stack gap={0}>
-				<Button onClick={resetProgress} m='md'>
+				<Button onClick={resetProgress} m='md' color='red'>
 					Reset Progress
 				</Button>
 				<Button component={Link} to='/' m='md'>
