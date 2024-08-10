@@ -1,5 +1,5 @@
 import { AppShell, Button, Card, Group, Image, Modal, Stack, Text, Title } from '@mantine/core'
-import { useDisclosure } from '@mantine/hooks'
+import { useDisclosure, useViewportSize } from '@mantine/hooks'
 import { createRoute, Link } from '@tanstack/react-router'
 
 import LocationImage from '~/components/LocationImage'
@@ -16,10 +16,23 @@ export const progressRoute = createRoute({
 })
 
 function Progress() {
+	const { width } = useViewportSize()
+
+	return width >= 768 ? <DesktopProgress /> : <MobileProgress />
+}
+
+function DesktopProgress() {
 	return (
-		<AppShell navbar={{ width: 300, breakpoint: 'sm' }}>
+		<AppShell navbar={{ width: 200, breakpoint: 0 }}>
 			<AppShell.Navbar>
-				<Sidebar />
+				<Stack justify='space-between' style={{ height: '100%' }}>
+					<Stack gap='md' mt='md' mb='md'>
+						<ProgressTitle />
+					</Stack>
+					<Stack gap={0}>
+						<ProgressButtons />
+					</Stack>
+				</Stack>
 			</AppShell.Navbar>
 			<AppShell.Main>
 				<Locations />
@@ -28,30 +41,51 @@ function Progress() {
 	)
 }
 
-function Sidebar() {
+function MobileProgress() {
+	return (
+		<AppShell header={{ height: 60 }} footer={{ height: 60 }}>
+			<AppShell.Header>
+				<Group justify='center'>
+					<ProgressTitle />
+				</Group>
+			</AppShell.Header>
+			<AppShell.Main>
+				<Locations />
+			</AppShell.Main>
+			<AppShell.Footer>
+				<Group justify='center'>
+					<ProgressButtons />
+				</Group>
+			</AppShell.Footer>
+		</AppShell>
+	)
+}
+
+function ProgressTitle() {
 	const completed = useProgressStore(state => state.completed)
 	const incomplete = useProgressStore(state => state.incomplete)
 
+	return (
+		<>
+			<Title ta='center'>Progress</Title>
+			<Title ta='center' order={2}>
+				{completed.length} / {completed.length + incomplete.length}
+			</Title>
+		</>
+	)
+}
+
+function ProgressButtons() {
 	const [opened, { open, close }] = useDisclosure(false)
 
 	return (
 		<>
-			<Stack justify='space-between' style={{ height: '100%' }}>
-				<Stack gap='md' mt='md' mb='md'>
-					<Title ta='center'>Progress</Title>
-					<Title ta='center' order={2}>
-						{completed.length} / {completed.length + incomplete.length}
-					</Title>
-				</Stack>
-				<Stack gap={0}>
-					<Button onClick={open} m='md' color='red'>
-						Reset Progress
-					</Button>
-					<Button component={Link} to='/' m='md'>
-						Home
-					</Button>
-				</Stack>
-			</Stack>
+			<Button onClick={open} m='sm' color='red'>
+				Reset Progress
+			</Button>
+			<Button component={Link} to='/' m='sm'>
+				Home
+			</Button>
 
 			<ResetProgressModal opened={opened} close={close} />
 		</>
