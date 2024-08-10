@@ -2,6 +2,7 @@ import { create } from 'zustand'
 import { devtools, persist } from 'zustand/middleware'
 
 import { type Location, locationData } from '~/data/locations'
+import { type MapName } from '~/generated/MAP'
 
 import { createActionName, persistStoreName, type Slice } from './storeTypes'
 
@@ -52,13 +53,19 @@ const createProgressAction: Slice<ProgressStore, ProgressAction> = (set, get) =>
 	},
 
 	updateIncomplete: () => {
-		const completeLocation = get().completed.map<Location>(({ map, cords, size }) => ({ map, cords, size }))
+		type LocationString = `${MapName}[${number}-${number}]${number}`
 
-		const completed = new Set<Location>(completeLocation)
+		const toLocationString = ({ map, cords: [x, y], size }: Location | LocationTime) => {
+			return `${map}[${x}-${y}]${size}` as const
+		}
+
+		const completeLocation = get().completed.map<LocationString>(toLocationString)
+
+		const completed = new Set<LocationString>(completeLocation)
 		const incomplete = new Set<Location>()
 
 		locationData.forEach(location => {
-			if (!completed.has(location)) {
+			if (!completed.has(toLocationString(location))) {
 				incomplete.add(location)
 			}
 		})
