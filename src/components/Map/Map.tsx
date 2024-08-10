@@ -12,6 +12,8 @@ import classes from './Map.module.css'
 export default function Map() {
 	const currentMap = useGameStore(state => state.currentMap)
 
+	const isDesktop = useIsDesktop()
+
 	const src = `${publicPath}/map/${currentMap}.png`
 
 	const container = useRef<HTMLDivElement>(null)
@@ -26,8 +28,11 @@ export default function Map() {
 
 	const imageScale = useMemo(() => {
 		if (!containerWidth || !containerHeight || !imageNaturalWidth || !imageNaturalHeight) return 0
-		return Math.min(containerWidth / imageNaturalWidth, containerHeight / imageNaturalHeight)
-	}, [containerWidth, containerHeight, imageNaturalWidth, imageNaturalHeight])
+		return Math.min(
+			(containerWidth - (isDesktop ? 300 : 0)) / imageNaturalWidth,
+			containerHeight / imageNaturalHeight
+		)
+	}, [containerWidth, containerHeight, imageNaturalWidth, imageNaturalHeight, isDesktop])
 
 	const handleResize = useCallback(() => {
 		if (container.current) {
@@ -56,8 +61,6 @@ export default function Map() {
 		}
 		image.src = src
 	}, [src])
-
-	const isDesktop = useIsDesktop()
 
 	return (
 		<Box
