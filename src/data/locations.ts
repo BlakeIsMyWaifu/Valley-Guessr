@@ -78,10 +78,10 @@ export const locationData = (
 
 		{ map: 'generalStore', cords: [176, 16] },
 		{ map: 'generalStore', cords: [32, 16] },
-		{ map: 'generalStore', cords: [252, 191] },
+		{ map: 'generalStore', cords: [352, 191] },
 		{ map: 'generalStore', cords: [288, 431] },
 		{ map: 'generalStore', cords: [96, 224] },
-		{ map: 'generalStore', cords: [576, 241] },
+		{ map: 'generalStore', cords: [576, 241], size: 48 },
 
 		{ map: 'gourmandFrog', cords: [64, 45] },
 
